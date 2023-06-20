@@ -1,0 +1,50 @@
+ print(tabulate.tabulate([shoe.__dict__ for shoe in shoes_list], headers="keys"))
+def re_stock():
+   min_quantity_shoe = min(shoes_list, key=lambda x: x.quantity)
+   response = input(f"Do you want to restock {min_quantity_shoe.product}? (y/n) ")
+   if response == "y":
+       quantity = input("Enter the new quantity: ")
+       min_quantity_shoe.quantity = quantity
+def search_shoe(code):
+   for shoe in shoes_list:
+       if shoe.code == code:
+           return shoe
+def value_per_item():
+   for shoe in shoes_list:
+       value = int(shoe.cost) * int(shoe.quantity)
+       print(f"{shoe.product}: {value}")
+def highest_qty():
+   max_quantity_shoe = max(shoes_list, key=lambda x: x.quantity)
+   print(f"{max_quantity_shoe.product} is for sale with the highest quantity.")
+def main():
+   read_shoes_data()
+   while True:
+       print("1. Capture shoes")
+       print("2. View all shoes")
+       print("3. Restock shoes")
+       print("4. Search for a shoe")
+       print("5. Calculate value per item")
+       print("6. Determine highest quantity shoe for sale")
+       print("7. Exit")
+       choice = int(input("Enter your choice: "))
+       if choice == 1:
+           capture_shoes()
+       elif choice == 2:
+           view_all()
+       elif choice == 3:
+           re_stock()
+       elif choice == 4:
+           code = input("Enter the SKU code: ")
+           shoe = search_shoe(code)
+           if shoe:
+               print(shoe)
+           else:
+               print("Shoe not found.")
+       elif choice == 5:
+           value_per_item()
+       elif choice == 6:
+           highest_qty()
+       elif choice == 7:
+           break
+main()
+
